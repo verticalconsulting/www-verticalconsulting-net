@@ -10,8 +10,8 @@ This is the Five hughes LLC dba Vertical Consulting website - a static business 
 
 - **Static Site Generator**: Jekyll 4.4.0
 - **Frontend**: HTML, CSS (custom properties/CSS variables), JavaScript (jQuery)
-- **Deployment**: Netlify
-- **CI/CD**: GitHub Actions (Jekyll Docker builder)
+- **Deployment**: Netlify (auto-deploys from master)
+- **CI/CD**: GitHub Actions (Ruby 3.2 with bundler)
 - **Spam Prevention**: Akismet, honeypot fields, reCAPTCHA 2 (via Netlify)
 
 ## Development Commands
@@ -49,8 +49,10 @@ docker run \
 The site follows a simple flat structure with individual HTML pages for each section:
 
 - **Main Pages**: `index.html`, `about.html`, `services.html`, `projects.html`, `press.html`, `contact.html`, `client-forms.html`
+- **Marketing Pages**: `marketing-divisions.html`, `healthcare-marketing.html`, `grace-ai-receptionist.html`
+- **Landing Pages**: `landing/ai-receptionist-jackson-ms.html`, `sms-optin.html`, `sms-optin-thank-you.html`
 - **Legal Pages**: `privacy.html`, `imprint.html`
-- **Project Detail Pages**: `projects-*.html` (e.g., `projects-hmi.html`, `projects-ai-chatsolution.html`)
+- **Project Detail Pages**: `projects-*.html` (e.g., `projects-hmi.html`, `projects-ai-chatsolution.html`, `projects-a-missionary-website.html`)
 
 ### Client Forms Feature
 
@@ -123,8 +125,26 @@ Site metadata in `_config.yml`:
 ## Git Workflow
 
 - **Main Branch**: `master` (used for production deployments and PR targets)
-- **CI/CD**: GitHub Actions builds Jekyll site in Docker on push/PR to master
+- **CI/CD**: GitHub Actions builds Jekyll site with Ruby 3.2 on push/PR to master
 - **Deployment**: Netlify automatically deploys from master branch
+
+### Branch Naming Convention
+
+- `feature/[description]` - for new features
+- `fix/[description]` - for bug fixes
+- `docs/[description]` - for documentation updates
+- `seo/[description]` - for SEO-related changes
+
+### Commit Message Format
+
+```
+type: description
+
+- Detailed change 1
+- Detailed change 2
+```
+
+Types: `feat:` (new feature), `fix:` (bug fix), `docs:` (documentation), `style:` (formatting), `refactor:`, `test:`, `chore:` (maintenance)
 
 ## Working with This Codebase
 
