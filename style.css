@@ -486,6 +486,12 @@ nav a.current {
 	display: flex;
 	overflow: hidden;
 }
+.image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
 .footer {
 	background-color: var(--clr-primary-900);
 	height: 140px;
