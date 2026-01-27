@@ -1,0 +1,104 @@
+{% comment %}
+  Optimized Image Include for Cloudflare Images Transformation Worker
+
+  Usage:
+    {% include optimized-image.html
+       src="images/photo.jpg"
+       alt="Description"
+       width="800"
+       height="600"
+       quality="85"
+       fit="cover"
+       gravity="face"
+       class="img-class"
+       loading="lazy"
+       responsive=true
+    %}
+
+  Parameters:
+    - src (required): Image path relative to site root
+    - alt (required): Alt text for accessibility
+    - width: Maximum width in pixels
+    - height: Maximum height in pixels
+    - quality: JPEG/WebP quality (1-100, default: 85)
+    - fit: Resize mode (scale-down, contain, cover, crop, pad)
+    - gravity: Crop focal point (auto, face, left, right, top, bottom)
+    - class: CSS classes to add to img tag
+    - loading: Loading strategy (lazy, eager)
+    - responsive: Generate srcset for responsive images (true/false)
+    - sizes: Custom sizes attribute for responsive images
+    - blur: Blur radius (1-250)
+    - sharpen: Sharpen amount (0-10)
+{% endcomment %}
+
+{% assign base_url = "/cdn-cgi/imageoptim" %}
+{% assign options = "" %}
+
+{% comment %} Build options string {% endcomment %}
+{% if include.width %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "width=" | append: include.width %}
+{% endif %}
+
+{% if include.height %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "height=" | append: include.height %}
+{% endif %}
+
+{% if include.quality %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "quality=" | append: include.quality %}
+{% else %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "quality=85" %}
+{% endif %}
+
+{% if include.fit %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "fit=" | append: include.fit %}
+{% endif %}
+
+{% if include.gravity %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "gravity=" | append: include.gravity %}
+{% endif %}
+
+{% if include.blur %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "blur=" | append: include.blur %}
+{% endif %}
+
+{% if include.sharpen %}
+  {% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+  {% assign options = options | append: "sharpen=" | append: include.sharpen %}
+{% endif %}
+
+{% comment %} Always add format=auto for best format negotiation {% endcomment %}
+{% if options != "" %}{% assign options = options | append: "," %}{% endif %}
+{% assign options = options | append: "format=auto" %}
+
+{% comment %} Build the optimized URL {% endcomment %}
+{% assign optimized_src = base_url | append: "/" | append: options | append: "/" | append: include.src %}
+
+{% comment %} Generate srcset for responsive images {% endcomment %}
+{% if include.responsive %}
+  {% assign srcset_widths = "400,800,1200,1600" | split: "," %}
+  {% assign srcset_parts = "" %}
+  {% for w in srcset_widths %}
+    {% assign w_options = "width=" | append: w | append: ",quality=85,format=auto" %}
+    {% if include.fit %}{% assign w_options = w_options | append: ",fit=" | append: include.fit %}{% endif %}
+    {% if include.gravity %}{% assign w_options = w_options | append: ",gravity=" | append: include.gravity %}{% endif %}
+    {% assign w_url = base_url | append: "/" | append: w_options | append: "/" | append: include.src %}
+    {% if srcset_parts != "" %}{% assign srcset_parts = srcset_parts | append: ", " %}{% endif %}
+    {% assign srcset_parts = srcset_parts | append: w_url | append: " " | append: w | append: "w" %}
+  {% endfor %}
+{% endif %}
+
+<img src="{{ optimized_src }}"
+     alt="{{ include.alt }}"
+     {% if include.responsive %}srcset="{{ srcset_parts }}"{% endif %}
+     {% if include.sizes %}sizes="{{ include.sizes }}"{% elsif include.responsive %}sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"{% endif %}
+     {% if include.class %}class="{{ include.class }}"{% endif %}
+     {% if include.loading %}loading="{{ include.loading }}"{% endif %}
+     {% if include.width %}width="{{ include.width }}"{% endif %}
+     {% if include.height %}height="{{ include.height }}"{% endif %}>
