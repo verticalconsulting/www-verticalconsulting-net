@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Five hughes LLC dba Vertical Consulting website - a static business website built with Jekyll, featuring professional consulting services, project portfolio, and contact information. The site is deployed on Netlify at https://www.verticalconsulting.net.
+This is the Five hughes LLC dba Vertical Consulting website - a static business website built with Jekyll, featuring professional consulting services, project portfolio, and contact information. The site is deployed on Cloudflare Pages at https://www.verticalconsulting.net.
 
 ## Technology Stack
 
 - **Static Site Generator**: Jekyll 4.4.0
 - **Frontend**: HTML, CSS (custom properties/CSS variables), JavaScript (jQuery)
-- **Deployment**: Netlify (auto-deploys from master)
-- **CI/CD**: GitHub Actions (Ruby 3.2 with bundler)
-- **Spam Prevention**: Akismet, honeypot fields, reCAPTCHA 2 (via Netlify)
+- **Deployment**: Cloudflare Pages (auto-deploys from master via Wrangler)
+- **CI/CD**: Cloudflare Pages build pipeline (Ruby 3.2 with bundler)
+- **Spam Prevention**: Akismet, honeypot fields, reCAPTCHA 2
 
 ## Development Commands
 
@@ -40,6 +40,35 @@ docker run \
   -v $(pwd):/srv/jekyll \
   -v $(pwd)/_site:/srv/jekyll/_site \
   jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+```
+
+### Cloudflare Pages Deployment
+
+The site uses Cloudflare Pages with Wrangler for deployment. Configuration is in `wrangler.jsonc`:
+
+```jsonc
+{
+  "name": "verticalconsulting",
+  "compatibility_date": "2026-01-27",
+  "assets": {
+    "directory": "./_site"
+  }
+}
+```
+
+**Build Process**:
+1. Cloudflare Pages detects `.tool-versions` and installs Ruby 3.2.2
+2. Runs `bundle install` to install Jekyll dependencies
+3. Executes build command: `bundle exec jekyll build` (builds to `_site/` directory)
+4. Runs deploy command: `npx wrangler deploy` (deploys static files from `_site/`)
+
+**Manual Deployment**:
+```bash
+# Build Jekyll site
+bundle exec jekyll build
+
+# Deploy to Cloudflare Pages
+npx wrangler deploy
 ```
 
 ## Architecture
@@ -125,8 +154,8 @@ Site metadata in `_config.yml`:
 ## Git Workflow
 
 - **Main Branch**: `master` (used for production deployments and PR targets)
-- **CI/CD**: GitHub Actions builds Jekyll site with Ruby 3.2 on push/PR to master
-- **Deployment**: Netlify automatically deploys from master branch
+- **CI/CD**: Cloudflare Pages builds Jekyll site with Ruby 3.2 on push/PR to master
+- **Deployment**: Cloudflare Pages automatically deploys from master branch via Wrangler
 
 ### Branch Naming Convention
 

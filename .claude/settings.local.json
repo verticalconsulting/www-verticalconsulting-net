@@ -14,7 +14,8 @@
       "Bash(then mv \"testimonial-cloud-engineer.png.png\" \"testimonial-cloud-engineer.png\")",
       "Bash(for file in contact.html client-forms.html grace-ai-receptionist.html press.html privacy.html imprint.html)",
       "Bash(do if [ -f \"$file\" ])",
-      "Bash(then echo \"$file exists\")"
+      "Bash(then echo \"$file exists\")",
+      "Bash(bundle exec:*)"
     ],
     "deny": [],
     "ask": []
