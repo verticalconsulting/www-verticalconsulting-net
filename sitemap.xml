@@ -1,148 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.verticalconsulting.net/</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>1.00</priority>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- Main Pages -->
   <url>
     <loc>https://www.verticalconsulting.net/about.html</loc>
-    <lastmod>2026-02-04</lastmod>
-    <priority>0.80</priority>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/services.html</loc>
-    <lastmod>2026-02-04</lastmod>
-    <priority>0.90</priority>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- NEW Marketing Division Pages -->
   <url>
     <loc>https://www.verticalconsulting.net/marketing-divisions.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.90</priority>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/healthcare-marketing.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.85</priority>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- Project Pages -->
   <url>
     <loc>https://www.verticalconsulting.net/projects.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.70</priority>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/projects-ai-chatsolution.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.60</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/projects-hmi.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.60</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/projects-a-nonprofit-missionary-fundraising.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.60</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/projects-a-missionary-website.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.60</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- Product Pages -->
   <url>
     <loc>https://www.verticalconsulting.net/grace-ai-receptionist.html</loc>
-    <lastmod>2026-02-04</lastmod>
-    <priority>0.85</priority>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- Client Area -->
   <url>
     <loc>https://www.verticalconsulting.net/client-forms.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.70</priority>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- Contact -->
   <url>
     <loc>https://www.verticalconsulting.net/contact.html</loc>
-    <lastmod>2026-02-04</lastmod>
-    <priority>0.85</priority>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- Landing Pages -->
   <url>
     <loc>https://www.verticalconsulting.net/landing/ai-receptionist-jackson-ms.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.80</priority>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- Legal Pages -->
   <url>
     <loc>https://www.verticalconsulting.net/press.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.40</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/privacy.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.30</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/imprint.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.30</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
-  <!-- SMS Opt-in Pages -->
   <url>
     <loc>https://www.verticalconsulting.net/sms-optin.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.50</priority>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
   <url>
     <loc>https://www.verticalconsulting.net/sms-optin-thank-you.html</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.30</priority>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-02-17</lastmod>
   </url>
-
 </urlset>
