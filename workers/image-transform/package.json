@@ -1,0 +1,29 @@
+{
+  "name": "cloudflare-image-transform-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Images transformation worker for automatic image optimization",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:production": "wrangler deploy --env production",
+    "deploy:staging": "wrangler deploy --env staging",
+    "tail": "wrangler tail",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "image",
+    "optimization",
+    "transformation",
+    "webp",
+    "avif"
+  ],
+  "author": "Vertical Consulting",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

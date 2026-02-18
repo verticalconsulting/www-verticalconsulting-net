@@ -1,0 +1,52 @@
+# Cloudflare Images Transformation Worker Configuration
+# https://developers.cloudflare.com/workers/configuration/
+
+name = "image-transform"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Account ID - Replace with your Cloudflare account ID
+# account_id = "your-account-id-here"
+
+# Routes for production deployment
+[[routes]]
+pattern = "www.verticalconsulting.net/cdn-cgi/imageoptim/*"
+zone_name = "verticalconsulting.net"
+
+# Optional: route raw /images/* through the worker as well.
+# Keep disabled unless you explicitly want auto-optimization for every image request.
+# [[routes]]
+# pattern = "www.verticalconsulting.net/images/*"
+# zone_name = "verticalconsulting.net"
+
+# Workers.dev subdomain (for testing)
+workers_dev = true
+
+# Environment variables for configuration
+[vars]
+IMAGE_QUALITY = "85"
+IMAGE_MAX_WIDTH = "2400"
+IMAGE_MAX_HEIGHT = "2400"
+IMAGE_CACHE_TTL = "604800"
+
+# Production environment configuration
+[env.production]
+name = "image-transform-prod"
+workers_dev = false
+
+[env.production.vars]
+IMAGE_QUALITY = "85"
+IMAGE_MAX_WIDTH = "2400"
+IMAGE_MAX_HEIGHT = "2400"
+IMAGE_CACHE_TTL = "604800"
+
+# Staging environment for testing
+[env.staging]
+name = "image-transform-staging"
+workers_dev = true
+
+[env.staging.vars]
+IMAGE_QUALITY = "80"
+IMAGE_MAX_WIDTH = "1920"
+IMAGE_MAX_HEIGHT = "1920"
+IMAGE_CACHE_TTL = "3600"
