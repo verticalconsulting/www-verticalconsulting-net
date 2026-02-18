@@ -9,11 +9,12 @@ compatibility_date = "2024-01-01"
 # account_id = "your-account-id-here"
 
 # Routes for production deployment
-# Uncomment and configure for your domain(s)
-# [[routes]]
-# pattern = "www.verticalconsulting.net/cdn-cgi/imageoptim/*"
-# zone_name = "verticalconsulting.net"
+[[routes]]
+pattern = "www.verticalconsulting.net/cdn-cgi/imageoptim/*"
+zone_name = "verticalconsulting.net"
 
+# Optional: route raw /images/* through the worker as well.
+# Keep disabled unless you explicitly want auto-optimization for every image request.
 # [[routes]]
 # pattern = "www.verticalconsulting.net/images/*"
 # zone_name = "verticalconsulting.net"

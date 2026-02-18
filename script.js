@@ -234,6 +234,105 @@ function initPullToRefresh() {
   });
 }
 
+let imageWorkerAvailabilityPromise = null;
+
+function checkImageWorkerAvailability() {
+  if (imageWorkerAvailabilityPromise) return imageWorkerAvailabilityPromise;
+
+  imageWorkerAvailabilityPromise = fetch(
+    "/cdn-cgi/imageoptim/width=64,quality=70,format=auto/images/vertical-v-only-logo.png",
+    {
+      method: "HEAD",
+      cache: "no-store",
+    }
+  )
+    .then((response) => response.ok)
+    .catch(() => false);
+
+  return imageWorkerAvailabilityPromise;
+}
+
+function buildOptimizedImageUrl(pathname, width) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const requestedWidth = Math.min(Math.max(Math.ceil(width * dpr), 240), 2400);
+  const roundedWidth = Math.ceil(requestedWidth / 80) * 80;
+  const quality = window.matchMedia("(max-width: 820px)").matches ? 72 : 82;
+  return `/cdn-cgi/imageoptim/width=${roundedWidth},quality=${quality},format=auto${pathname}`;
+}
+
+function shouldSkipOptimization(img, pathname) {
+  if (!pathname.includes("/images/")) return true;
+  if (pathname.startsWith("/cdn-cgi/imageoptim/")) return true;
+  if (img.dataset.noOptimize === "true") return true;
+
+  const lowerPath = pathname.toLowerCase();
+  if (lowerPath.endsWith(".svg") || lowerPath.endsWith(".gif") || lowerPath.endsWith(".ico")) return true;
+
+  const classText = (img.className || "").toLowerCase();
+  const altText = (img.getAttribute("alt") || "").toLowerCase();
+  const widthAttr = parseInt(img.getAttribute("width") || "0", 10);
+  const heightAttr = parseInt(img.getAttribute("height") || "0", 10);
+  const isLikelyIcon = (widthAttr > 0 && widthAttr <= 140 && heightAttr > 0 && heightAttr <= 140) || classText.includes("logo") || altText.includes("logo");
+  return isLikelyIcon;
+}
+
+function applyResponsiveSrcset(img, pathname, baseWidth) {
+  if (img.getAttribute("srcset")) return;
+  const widthSteps = [360, 540, 720, 960, 1200, 1600, 2000];
+  const maxUsefulWidth = Math.min(Math.max(Math.ceil(baseWidth * 2), 720), 2000);
+  const candidates = widthSteps.filter((w) => w <= maxUsefulWidth);
+  if (!candidates.length) candidates.push(Math.min(Math.max(Math.ceil(baseWidth), 360), 1200));
+
+  const srcset = candidates
+    .map((w) => `${buildOptimizedImageUrl(pathname, w)} ${w}w`)
+    .join(", ");
+  img.setAttribute("srcset", srcset);
+  if (!img.getAttribute("sizes")) {
+    img.setAttribute("sizes", "(max-width: 820px) 100vw, 50vw");
+  }
+}
+
+async function initCloudflareImageOptimization() {
+  const workerAvailable = await checkImageWorkerAvailability();
+  if (!workerAvailable) return;
+
+  document.querySelectorAll("img[src]").forEach((img) => {
+    const rawSrc = img.getAttribute("src");
+    if (!rawSrc || rawSrc.startsWith("data:")) return;
+
+    let resolved;
+    try {
+      resolved = new URL(rawSrc, window.location.href);
+    } catch (err) {
+      return;
+    }
+
+    if (resolved.origin !== window.location.origin) return;
+    const pathname = resolved.pathname;
+    if (shouldSkipOptimization(img, pathname)) return;
+
+    const renderWidth = img.clientWidth || parseInt(img.getAttribute("width") || "0", 10) || Math.min(window.innerWidth, 1200);
+    const optimizedSrc = buildOptimizedImageUrl(pathname, renderWidth);
+    const originalSrc = rawSrc;
+
+    applyResponsiveSrcset(img, pathname, renderWidth);
+    img.setAttribute("decoding", "async");
+    img.setAttribute("data-original-src", originalSrc);
+    img.src = optimizedSrc;
+
+    img.addEventListener(
+      "error",
+      () => {
+        const fallbackSrc = img.getAttribute("data-original-src");
+        if (!fallbackSrc) return;
+        img.removeAttribute("srcset");
+        img.src = fallbackSrc;
+      },
+      { once: true }
+    );
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setCurrentNavLinks();
   initReveal();
@@ -242,4 +341,5 @@ document.addEventListener("DOMContentLoaded", () => {
   injectMobileBottomNav();
   initSelectDrawer();
   initPullToRefresh();
+  initCloudflareImageOptimization();
 });
