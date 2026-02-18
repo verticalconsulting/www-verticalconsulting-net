@@ -8,7 +8,7 @@ This guide will help you submit your website to Google Search Console and ensure
 - ✅ `robots.txt` file exists and references sitemap
 - ✅ Website is live at https://www.verticalconsulting.net
 
-## Step 1: Verify Website Ownership
+## Step 1: Verify Website Ownershipd
 
 ### Option A: HTML File Upload (Recommended for Static Sites)
 

@@ -19,6 +19,10 @@ zone_name = "verticalconsulting.net"
 # pattern = "www.verticalconsulting.net/images/*"
 # zone_name = "verticalconsulting.net"
 
+# For automatic optimization of /images/* path
+[[routes]]
+pattern = "www.verticalconsulting.net/images/*"
+zone_name = "verticalconsulting.net"
 # Workers.dev subdomain (for testing)
 workers_dev = true
 
